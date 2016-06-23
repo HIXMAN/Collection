@@ -27,15 +27,49 @@ class Collection
     {
         return $this->items;
     }
+
+
     /**
-     * Results array of items from Collection or Arrayable.
+     * Add a item to dataset attached to a key
      *
-     * @param  function  $function
+     * @param  mixed  $key
+     * @param  mixed  $value
      * @return Collection
      */
-    public function addWithKey($key,$value)
+    public function add($value)
     {
-        $this->items[$key] = $value;
+        $this->items[] = $value;
+        return $this;
+    }
+
+    /**
+     * Add a item to dataset attached to a key
+     *
+     * @param  mixed  $key
+     * @param  mixed  $value
+     * @return Collection
+     */
+    public function addWithKey($key, $value)
+    {
+        if(isset($this->items[$key]))
+        {
+            $this->items[$key]->add($value);
+        }else
+        {
+            $this->items[$key] = new Collection([$value]);
+        }
+        return $this;
+    }
+
+    /**
+     * Get a item from dataset by key
+     *
+     * @param  mixed  $key
+     * @return Mixed
+     */
+    public function getByKey($key)
+    {
+        return $this->items[$key];
     }
 
     /**
@@ -72,10 +106,9 @@ class Collection
 
         return $this->reduce(function($result,$item) use ($function)
         {
-//            $this->addWithKey($function($item),$item);
-            $result[$function($item)][] = $item;
+            $result->addWithKey($function($item),$item);
             return $result;
-        },[]);
+        },new Collection([]));
     }
 
 
@@ -114,5 +147,7 @@ class Collection
             return $items->toCollection();
         }
     }
+
+
 
 }

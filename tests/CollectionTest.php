@@ -79,19 +79,19 @@ class CollectionTest extends PHPUnit_Framework_TestCase
     /**
      * Test groupBy function works properly
      */
-//    public function test_group_by_odd_even_function_works_properly()
-//    {
-//        $this->collection = new Collection([1,2,3,4,5,6,7,8,9,10]);
-//        $function = function($item)
-//        {
-//            return ($item%2 == 0)?self::EVEN:self::ODD;
-//        };
-//
-//        $groupedByOddEven = $this->collection->groupBy($function);
-//
-//        $testOK = $this->iterateOddAndEvenAndCheckIfDataIsOddOrEven($groupedByOddEven);
-//        $this->assertTrue($testOK);
-//    }
+    public function test_group_by_function_works_properly()
+    {
+        $this->collection = new Collection([1,2,3,4,5,6,7,8,9,10]);
+        $function = function($item)
+        {
+            return ($item%2 == 0)?self::EVEN:self::ODD;
+        };
+
+        $groupedByOddEven = $this->collection->groupBy($function);
+
+        $testOK = $this->iterateOddAndEvenAndCheckIfDataIsOddOrEven($groupedByOddEven);
+        $this->assertTrue($testOK);
+    }
 
 
     /**
@@ -168,10 +168,10 @@ class CollectionTest extends PHPUnit_Framework_TestCase
     private function iterateOddAndEvenAndCheckIfDataIsOddOrEven($groupedByOddEven)
     {
         $testOK = true;
-        foreach ($groupedByOddEven[self::ODD] as $value) {
+        foreach ($groupedByOddEven->getByKey(self::ODD) as $value) {
             if ($value % 2 == 0) $testOK = false;
         }
-        foreach ($groupedByOddEven[self::EVEN] as $value) {
+        foreach ($groupedByOddEven->getByKey(self::EVEN) as $value) {
             if ($value % 2 != 0) $testOK = false;
         }
         return $testOK;
