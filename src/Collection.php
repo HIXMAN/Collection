@@ -51,11 +51,9 @@ class Collection
      */
     public function addWithKey($key, $value)
     {
-        if(isset($this->items[$key]))
-        {
+        if (isset($this->items[$key])) {
             $this->items[$key]->add($value);
-        }else
-        {
+        } else {
             $this->items[$key] = new Collection([$value]);
         }
         return $this;
@@ -80,7 +78,7 @@ class Collection
      */
     public function map(callable $function)
     {
-        $this->items = array_map($function,$this->items);
+        $this->items = array_map($function, $this->items);
         return $this;
     }
 
@@ -90,9 +88,9 @@ class Collection
      * @param  function  $function
      * @return mixed
      */
-    public function reduce(callable $function,$initial = null)
+    public function reduce(callable $function, $initial = null)
     {
-        return array_reduce($this->items,$function,$initial);
+        return array_reduce($this->items, $function, $initial);
     }
 
     /**
@@ -104,11 +102,9 @@ class Collection
     public function groupBy(callable $function = null)
     {
 
-        return $this->reduce(function($result,$item) use ($function)
-        {
-            $result->addWithKey($function($item),$item);
-            return $result;
-        },new Collection([]));
+        return $this->reduce(function ($result, $item) use ($function) {
+            return $result->addWithKey($function($item), $item);
+        }, new Collection([]));
     }
 
 
@@ -118,16 +114,16 @@ class Collection
      * @param  function  $function
      * @return mixed
      */
-    public function sortBy(callable $function,$descending = false)
+    public function sortBy(callable $function, $descending = false)
     {
-        $sortedItems = array_map(function($item) use ($function) {
+        $sortedItems = array_map(function ($item) use ($function) {
             return $function($item);
-        },$this->items);
+        }, $this->items);
         ($descending)?arsort($sortedItems):asort($sortedItems);
         $keys = array_keys($sortedItems);
-        $this->items = array_map(function($key){
+        $this->items = array_map(function ($key) {
             return $this->items[$key];
-        },$keys);
+        }, $keys);
         return $this;
     }
 
@@ -147,7 +143,4 @@ class Collection
             return $items->toCollection();
         }
     }
-
-
-
 }
