@@ -164,6 +164,7 @@ class Collection implements Iterator
     public function take($numberOfElements,$perserveKeys = true)
     {
         $sliceTaken = array_slice($this->items, 0, $numberOfElements, $perserveKeys);
+        $this->items = array_slice($this->items,$numberOfElements);
         return new Collection($sliceTaken);
     }
 

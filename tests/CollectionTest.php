@@ -247,11 +247,13 @@ class CollectionTest extends PHPUnit_Framework_TestCase
     public function test_take_method()
     {
         $this->collection = new Collection([1,2,3,4,5]);
-        $expectedArray = new Collection([1,2]);
+        $expectedCollection = new Collection([1,2]);
+        $remainingCollection = new Collection([3,4,5]);
 
         $resultTakingTwoItems = $this->collection->take(2);
 
-        $this->assertTrue($this->compareTwoCollections($expectedArray,$resultTakingTwoItems));
+        $this->assertTrue($this->compareTwoCollections($expectedCollection,$resultTakingTwoItems));
+        $this->assertTrue($this->compareTwoCollections($remainingCollection,$this->collection));
     }
 
     /**
