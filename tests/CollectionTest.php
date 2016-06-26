@@ -242,6 +242,19 @@ class CollectionTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test lastItem method
+     */
+    public function test_take_method()
+    {
+        $this->collection = new Collection([1,2,3,4,5]);
+        $expectedArray = new Collection([1,2]);
+
+        $resultTakingTwoItems = $this->collection->take(2);
+
+        $this->assertTrue($this->compareTwoCollections($expectedArray,$resultTakingTwoItems));
+    }
+
+    /**
      * @param $collection
      * @param $expectedArray
      * @return bool
@@ -287,5 +300,18 @@ class CollectionTest extends PHPUnit_Framework_TestCase
         return $testOK;
     }
 
+    /**
+     * @param $array1
+     * @param $array2
+     * @return bool
+     */
+    private function compareTwoCollections($collection1, $collection2)
+    {
+        $testOK = true;
+        foreach($collection1 as $index => $item){
+            $testOK = $item == $collection2->getByKey($index);
+        }
+        return $testOK;
+    }
 
 }

@@ -49,7 +49,9 @@ class Collection implements Iterator
      */
     public function last($remove = false)
     {
-        if($remove) return array_pop($this->items);
+        if ($remove) {
+            return array_pop($this->items);
+        }
         return $this->items[count($this->items)-1];
     }
 
@@ -60,7 +62,9 @@ class Collection implements Iterator
      */
     public function first($remove = false)
     {
-        if($remove) return array_shift($this->items);
+        if ($remove) {
+            return array_shift($this->items);
+        }
         return $this->items[0];
     }
 
@@ -147,6 +151,20 @@ class Collection implements Iterator
             return $this->items[$key];
         }, $keys);
         return $this;
+    }
+
+
+
+    /**
+     * create an array with n item taken from the beginning
+     *
+     * @param  function  $function
+     * @return mixed
+     */
+    public function take($numberOfElements,$perserveKeys = true)
+    {
+        $sliceTaken = array_slice($this->items, 0, $numberOfElements, $perserveKeys);
+        return new Collection($sliceTaken);
     }
 
     /**
