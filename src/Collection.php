@@ -174,7 +174,7 @@ class Collection implements Iterator
     public function take($numberOfElements, $perserveKeys = true)
     {
         $sliceTaken = array_slice($this->items, 0, $numberOfElements, $perserveKeys);
-        $this->items = array_slice($this->items,$numberOfElements);
+        $this->items = array_slice($this->items, $numberOfElements);
         return new Collection($sliceTaken);
     }
 
@@ -186,13 +186,12 @@ class Collection implements Iterator
      */
     public function filter(callable $function)
     {
-        return $this->reduce(function ($collection, $row) use ($function)
-        {
-            if ($function($row)){
+        return $this->reduce(function ($collection, $row) use ($function) {
+            if ($function($row)) {
                 return $collection->add($row);
             }
             return $collection;
-        },new Collection());
+        }, new Collection());
     }
 
     /**
