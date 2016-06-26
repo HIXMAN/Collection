@@ -4,6 +4,7 @@ namespace League\Functional;
 
 use League\Functional\Contracts\Collectible;
 use Iterator;
+use Exception;
 
 class Collection implements Iterator
 {
@@ -40,6 +41,16 @@ class Collection implements Iterator
     {
         $this->items[] = $value;
         return $this;
+    }
+
+    /**
+     * Return length of dataset
+     *
+     * @return int
+     */
+    public function lenght()
+    {
+        return count($this->items);
     }
 
     /**
@@ -153,19 +164,35 @@ class Collection implements Iterator
         return $this;
     }
 
-
-
     /**
      * create an array with n item taken from the beginning
      *
-     * @param  function  $function
-     * @return mixed
+     * @param  function  $numberOfElements
+     * @param  bool  $perserveKeys
+     * @return Collection
      */
-    public function take($numberOfElements,$perserveKeys = true)
+    public function take($numberOfElements, $perserveKeys = true)
     {
         $sliceTaken = array_slice($this->items, 0, $numberOfElements, $perserveKeys);
         $this->items = array_slice($this->items,$numberOfElements);
         return new Collection($sliceTaken);
+    }
+
+    /**
+     * create an array with n item filtered by given function
+     *
+     * @param  function  $function
+     * @return mixed
+     */
+    public function filter(callable $function)
+    {
+        return $this->reduce(function ($collection, $row) use ($function)
+        {
+            if ($function($row)){
+                return $collection->add($row);
+            }
+            return $collection;
+        },new Collection());
     }
 
     /**
@@ -183,6 +210,7 @@ class Collection implements Iterator
         } elseif ($items instanceof Collectible) {
             return $items->toCollection();
         }
+        throw Exception("Not valid data");
     }
 
     /**

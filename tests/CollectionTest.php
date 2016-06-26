@@ -257,6 +257,23 @@ class CollectionTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test filter method
+     */
+    public function test_filter_method()
+    {
+        $this->collection = new Collection([1,2,3,4,5,6,7,8,9,10]);
+        $expectedCollection = new Collection([2,4,6,8,10]);
+        $function = function ($item)
+        {
+            return $item % 2 == 0;
+        };
+
+        $resultTakingTwoItems = $this->collection->filter($function);
+
+        $this->assertTrue($this->compareTwoCollections($expectedCollection,$resultTakingTwoItems));
+    }
+
+    /**
      * @param $collection
      * @param $expectedArray
      * @return bool
@@ -310,8 +327,13 @@ class CollectionTest extends PHPUnit_Framework_TestCase
     private function compareTwoCollections($collection1, $collection2)
     {
         $testOK = true;
+        if ($collection1->lenght() != $collection2->lenght()){
+            return false;
+        }
         foreach($collection1 as $index => $item){
-            $testOK = $item == $collection2->getByKey($index);
+            if ($item != $collection2->getByKey($index)){
+                return false;
+            }
         }
         return $testOK;
     }
