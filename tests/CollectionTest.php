@@ -5,6 +5,7 @@ namespace League\Functional\Test;
 use League\Functional\Collection;
 use League\Functional\Collectibles\Arr;
 use PHPUnit_Framework_TestCase;
+use Iterator;
 
 
 class CollectionTest extends PHPUnit_Framework_TestCase
@@ -16,7 +17,7 @@ class CollectionTest extends PHPUnit_Framework_TestCase
     /**
      * @var Collection
      */
-    protected $collection;
+    protected $collection = null;
 
     /**
      * Test that constructor's Collection create and Collection's instance properly
@@ -144,6 +145,55 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 
         $testOK = $this->iterateAndCheckIfResultMatchesWithExpected($sortedCollection, $expectedArray);
         $this->assertTrue($testOK);
+    }
+
+    /**
+     * Test Collection is Iterator
+     */
+    public function test_collection_class_is_iterator()
+    {
+        $this->collection = new Collection([1,2,3,4]);
+        $expectedArray = [2,3,4,5];
+        $result = [];
+        $summatory = 1;
+
+        foreach ($this->collection as $item) {
+            $result[] = $item + $summatory;
+        }
+
+        $collectionIsAInstanceOfIterator = $this->collection instanceof Iterator;
+        $this->assertTrue($collectionIsAInstanceOfIterator);
+        $arraysAreEquals = true;
+        foreach ($result as $index => $item)
+        {
+            $arraysAreEquals = $expectedArray[$index] == $item;
+        }
+        $this->assertTrue($arraysAreEquals);
+    }
+
+    /**
+     * Test Collection is Iterator
+     */
+    public function test_iterators_methos_works_properly()
+    {
+        $this->collection = new Collection([1,2,3,4]);
+
+        $keyTest = $this->collection->key() == 0;
+        $this->collection->next();
+        $nextTest = $this->collection->current() == 2;
+        $this->collection->rewind();
+        $currentTest = $this->collection->current() == 1;
+        $validTest = $this->collection->valid();
+        $this->collection->next();
+        $this->collection->next();
+        $this->collection->rewind();
+        $rewindTest = $this->collection->current() == 1;
+
+        $this->assertTrue($keyTest);
+        $this->assertTrue($nextTest);
+        $this->assertTrue($currentTest);
+        $this->assertTrue($validTest);
+        $this->assertTrue($rewindTest);
     }
 
     /**
