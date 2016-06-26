@@ -40,7 +40,7 @@ class CollectionTest extends PHPUnit_Framework_TestCase
     /**
      * Test map function works properly
      */
-    public function test_map_function_works_properly()
+    public function test_map_function()
     {
         $expectedArray = [2,3,4,5];
         $this->collection =  new Collection([1,2,3,4]);
@@ -59,7 +59,7 @@ class CollectionTest extends PHPUnit_Framework_TestCase
     /**
      * Test map function works properly
      */
-    public function test_reduce_function_works_properly()
+    public function test_reduce_function()
     {
         $expectedResult = 4;
         $expectedResultWithInitialStatus = 5;
@@ -80,7 +80,7 @@ class CollectionTest extends PHPUnit_Framework_TestCase
     /**
      * Test groupBy function works properly
      */
-    public function test_group_by_function_works_properly()
+    public function test_group_by_function()
     {
         $this->collection = new Collection([1,2,3,4,5,6,7,8,9,10]);
         $function = function($item)
@@ -119,7 +119,7 @@ class CollectionTest extends PHPUnit_Framework_TestCase
     /**
      * Test groupBy function works properly
      */
-    public function test_sort_by_function_works_properly()
+    public function test_sort_by_function()
     {
         $sorters =[
             [self::SORTER =>1],
@@ -174,7 +174,7 @@ class CollectionTest extends PHPUnit_Framework_TestCase
     /**
      * Test Collection is Iterator
      */
-    public function test_iterators_methos_works_properly()
+    public function test_iterators_method()
     {
         $this->collection = new Collection([1,2,3,4]);
 
@@ -194,6 +194,51 @@ class CollectionTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($currentTest);
         $this->assertTrue($validTest);
         $this->assertTrue($rewindTest);
+    }
+
+    /**
+     * Test lastItem method
+     */
+    public function test_last_method()
+    {
+        $this->collection = new Collection([1,2,3,4,5]);
+        $this->collection2 = new Collection([1,2,3,4,5]);
+        $expectedResult = 5;
+        $expectedArray = [1,2,3,4];
+
+        $result = $this->collection->last();
+        $this->assertTrue($result == $expectedResult);
+        $result = $this->collection2->last(true);
+        $this->assertTrue($result == $expectedResult);
+
+        $testAllItemsAreEquals = true;
+        foreach ($this->collection2 as $index => $item) {
+            $testAllItemsAreEquals = $item == $expectedArray[$index];
+        }
+        $this->assertTrue($testAllItemsAreEquals);
+    }
+
+    /**
+     * Test lastItem method
+     */
+    public function test_first_method()
+    {
+        $this->collection = new Collection([1,2,3,4,5]);
+        $this->collection2 = new Collection([1,2,3,4,5]);
+        $expectedResult = 1;
+        $expectedArray = [2,3,4,5];
+
+        $resultWithoutRemove = $this->collection->first();
+        $this->assertTrue($resultWithoutRemove == $expectedResult);
+
+        $resultWithRemove = $this->collection2->first(true);
+        $this->assertTrue($resultWithRemove == $expectedResult);
+
+        $testAllItemsAreEquals = true;
+        foreach ($this->collection2 as $index => $item) {
+            $testAllItemsAreEquals = $item == $expectedArray[$index];
+        }
+        $this->assertTrue($testAllItemsAreEquals);
     }
 
     /**

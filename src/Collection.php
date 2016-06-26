@@ -29,7 +29,6 @@ class Collection implements Iterator
         return $this->items;
     }
 
-
     /**
      * Add a item to dataset attached to a key
      *
@@ -41,6 +40,28 @@ class Collection implements Iterator
     {
         $this->items[] = $value;
         return $this;
+    }
+
+    /**
+     * Get the last item from dataset
+     *
+     * @return mixed
+     */
+    public function last($remove = false)
+    {
+        if($remove) return array_pop($this->items);
+        return $this->items[count($this->items)-1];
+    }
+
+    /**
+     * Get the first item from dataset
+     *
+     * @return mixed
+     */
+    public function first($remove = false)
+    {
+        if($remove) return array_shift($this->items);
+        return $this->items[0];
     }
 
     /**
