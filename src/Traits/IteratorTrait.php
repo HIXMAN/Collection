@@ -64,13 +64,14 @@ trait IteratorTrait
     }
 
     /**
-     * Results array of items from IteratorTrait or Arrayable.
+     * Get a item from dataset by key
      *
-     * @return array
+     * @param  mixed  $key
+     * @return Mixed
      */
-    public function all()
+    public function getByKey($key)
     {
-        return $this->items;
+        return $this->items[$key];
     }
 
     /**
@@ -84,6 +85,29 @@ trait IteratorTrait
     {
         $this->items[] = $value;
         return $this;
+    }
+
+    /**
+     * Add a item to dataset attached to a key
+     *
+     * @param  mixed  $key
+     * @param  mixed  $value
+     * @return IteratorTrait
+     */
+    public function items($items)
+    {
+        $this->items = $items;
+        return $this;
+    }
+
+    /**
+     * Results array of items from IteratorTrait or Arrayable.
+     *
+     * @return array
+     */
+    public function all()
+    {
+        return $this->items;
     }
 
     /**
@@ -120,16 +144,5 @@ trait IteratorTrait
             return array_shift($this->items);
         }
         return $this->items[0];
-    }
-
-    /**
-     * Get a item from dataset by key
-     *
-     * @param  mixed  $key
-     * @return Mixed
-     */
-    public function getByKey($key)
-    {
-        return $this->items[$key];
     }
 }
