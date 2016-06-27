@@ -2,10 +2,11 @@
 
 namespace League\Functional\Test;
 
+use Iterator;
+use InvalidArgumentException;
+use PHPUnit_Framework_TestCase;
 use League\Functional\Collection;
 use League\Functional\Collectibles\Arr;
-use PHPUnit_Framework_TestCase;
-use Iterator;
 
 
 class CollectionTest extends PHPUnit_Framework_TestCase
@@ -271,6 +272,16 @@ class CollectionTest extends PHPUnit_Framework_TestCase
         $resultTakingTwoItems = $this->collection->filter($function);
 
         $this->assertTrue($this->compareTwoCollections($expectedCollection,$resultTakingTwoItems));
+    }
+
+    /**
+     * Test not valid data exception is thrown in constructor
+     */
+    public function test_not_valid_data_excention_is_thrown_in_constructor_method()
+    {
+        $this->setExpectedException(InvalidArgumentException::class);
+        $this->collection = new Collection(3);
+        $this->collection = new Collection("A string");
     }
 
     /**

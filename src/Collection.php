@@ -4,7 +4,7 @@ namespace League\Functional;
 
 use League\Functional\Contracts\Collectible;
 use Iterator;
-use Exception;
+use InvalidArgumentException;
 
 class Collection implements Iterator
 {
@@ -209,7 +209,7 @@ class Collection implements Iterator
         } elseif ($items instanceof Collectible) {
             return $items->toCollection();
         }
-        throw Exception("Not valid data");
+        throw new InvalidArgumentException("Not valid data");
     }
 
     /**
