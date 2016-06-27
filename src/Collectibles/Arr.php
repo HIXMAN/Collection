@@ -3,25 +3,23 @@
 namespace League\Functional\Collectibles;
 
 use League\Functional\Contracts\Collectible;
+use League\Functional\Traits\IteratorTrait;
+use Iterator;
 
-/**
- * Created by PhpStorm.
- * User: ismael
- * Date: 22/06/16
- * Time: 14:06
- */
-class Arr implements Collectible
+class Arr implements
+    Collectible,
+    Iterator
 {
 
-    private $array;
+    use IteratorTrait;
 
     public function __construct(array $array)
     {
-        $this->array = $array;
+        $this->items = $array;
     }
 
     public function toCollection()
     {
-        return $this->array;
+        return $this->items;
     }
 }
