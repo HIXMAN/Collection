@@ -66,7 +66,7 @@ trait IteratorTrait
     /**
      * Results array of items from IteratorTrait or Arrayable.
      *
-     * @return IteratorTrait
+     * @return array
      */
     public function all()
     {
