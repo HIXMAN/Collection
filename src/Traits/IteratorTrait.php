@@ -66,7 +66,6 @@ trait IteratorTrait
     /**
      * Results array of items from IteratorTrait or Arrayable.
      *
-     * @param  function  $function
      * @return IteratorTrait
      */
     public function all()
