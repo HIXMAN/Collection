@@ -1,6 +1,6 @@
 <?php
 
-namespace League\Functional\Contracts;
+namespace League\Collection\Contracts;
 
 /**
  * Created by PhpStorm.

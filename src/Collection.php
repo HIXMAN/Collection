@@ -1,11 +1,11 @@
 <?php
 
-namespace League\Functional;
+namespace League\Collection;
 
-use League\Functional\Contracts\Collectible;
 use Iterator;
 use InvalidArgumentException;
-use League\Functional\Traits\IteratorTrait;
+use League\Collection\Traits\IteratorTrait;
+use League\Collection\Contracts\Collectible;
 
 class Collection implements Iterator
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace League\Functional\Traits;
+namespace League\Collection\Traits;
 
 trait IteratorTrait
 {
