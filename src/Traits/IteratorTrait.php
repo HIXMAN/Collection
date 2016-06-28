@@ -2,6 +2,9 @@
 
 namespace League\Collection\Traits;
 
+
+use League\Collection\CollectionFactory;
+
 trait IteratorTrait
 {
     private $items = [];
@@ -75,15 +78,31 @@ trait IteratorTrait
     }
 
     /**
-     * Add a item to dataset attached to a key
+     * Add a item to dataset
      *
-     * @param  mixed  $key
      * @param  mixed  $value
      * @return IteratorTrait
      */
     public function add($value)
     {
         $this->items[] = $value;
+        return $this;
+    }
+
+    /**
+     * Add a item to dataset attached to a key
+     *
+     * @param  mixed  $key
+     * @param  mixed  $value
+     * @return Collection
+     */
+    public function addWithKey($key, $value)
+    {
+        if (isset($this->items[$key])) {
+            $this->items[$key]->add($value);
+        } else {
+            $this->items[$key] = CollectionFactory::create([$value]);
+        }
         return $this;
     }
 

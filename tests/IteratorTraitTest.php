@@ -11,27 +11,22 @@ class IteratorTraitTest extends BaseTest
 {
 
     /**
-     * @var Collection
-     */
-    protected $collection = null;
-
-    /**
      * Test Collection is Iterator
      */
     public function test_iterators_method()
     {
-        $this->collection = new Collection([1,2,3,4,5]);
+        $collection = new Collection([1,2,3,4,5]);
 
-        $keyTest = $this->collection->key() == 0;
-        $this->collection->next();
-        $nextTest = $this->collection->current() == 2;
-        $this->collection->rewind();
-        $currentTest = $this->collection->current() == 1;
-        $validTest = $this->collection->valid();
-        $this->collection->next();
-        $this->collection->next();
-        $this->collection->rewind();
-        $rewindTest = $this->collection->current() == 1;
+        $keyTest = $collection->key() == 0;
+        $collection->next();
+        $nextTest = $collection->current() == 2;
+        $collection->rewind();
+        $currentTest = $collection->current() == 1;
+        $validTest = $collection->valid();
+        $collection->next();
+        $collection->next();
+        $collection->rewind();
+        $rewindTest = $collection->current() == 1;
 
         $this->assertTrue($keyTest);
         $this->assertTrue($nextTest);
@@ -45,17 +40,17 @@ class IteratorTraitTest extends BaseTest
      */
     public function test_last_method()
     {
-        $this->collection = new Collection([1,2,3,4,5]);
-        $this->collection2 = new Collection([1,2,3,4,5]);
+        $collection = new Collection([1,2,3,4,5]);
+        $collection2 = new Collection([1,2,3,4,5]);
         $expectedCollection = new Collection([1,2,3,4]);
         $expectedResult = 5;
 
-        $result = $this->collection->last();
+        $result = $collection->last();
         $this->assertTrue($result == $expectedResult);
-        $result = $this->collection2->last(true);
+        $result = $collection2->last(true);
         $this->assertTrue($result == $expectedResult);
 
-        $this->assertTrue($this->compareTwoCollections($expectedCollection,$this->collection2));
+        $this->assertTrue($this->compareTwoCollections($expectedCollection,$collection2));
 
     }
 
@@ -64,18 +59,18 @@ class IteratorTraitTest extends BaseTest
      */
     public function test_first_method()
     {
-        $this->collection = new Collection([1,2,3,4,5]);
-        $this->collection2 = new Collection([1,2,3,4,5]);
+        $collection = new Collection([1,2,3,4,5]);
+        $collection2 = new Collection([1,2,3,4,5]);
         $expectedCollection = new Collection([2,3,4,5]);
         $expectedResult = 1;
 
-        $resultWithoutRemove = $this->collection->first();
+        $resultWithoutRemove = $collection->first();
         $this->assertTrue($resultWithoutRemove == $expectedResult);
 
-        $resultWithRemove = $this->collection2->first(true);
+        $resultWithRemove = $collection2->first(true);
         $this->assertTrue($resultWithRemove == $expectedResult);
 
-        $this->assertTrue($this->compareTwoCollections($expectedCollection,$this->collection2));
+        $this->assertTrue($this->compareTwoCollections($expectedCollection,$collection2));
     }
 
     /**
@@ -84,8 +79,8 @@ class IteratorTraitTest extends BaseTest
     public function test_not_valid_data_excention_is_thrown_in_constructor_method()
     {
         $this->setExpectedException(InvalidArgumentException::class);
-        $this->collection = new Collection(3);
-        $this->collection = new Collection("A string");
+        $collection = new Collection(3);
+        $collection = new Collection("A string");
     }
 
 }
