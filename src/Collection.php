@@ -80,7 +80,7 @@ class Collection implements Iterator
      * @param  function  $function
      * @return mixed
      */
-    public function sortBy(callable $function = null,$descending = false)
+    public function sortBy(callable $function = null, $descending = false)
     {
         $itemsToSort = array_map(function ($item) use ($function) {
             return $function($item);
