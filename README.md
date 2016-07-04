@@ -15,14 +15,18 @@ PSRs you support to avoid any confusion with users and contributors.
 Via Composer
 
 ``` bash
-$ composer require HIXMAN/Collection
+$ IN PROGRESS
 ```
 
 ## Usage
 
 ``` php
-$skeleton = new League\Skeleton();
-echo $skeleton->echoPhrase('Hello, League!');
+$collection = new Collection([1,2,3,4,5,6,7,8,9,10]);
+
+$filteredCollection = $this->collection->filter(function ($item)
+{
+    return $item % 2 == 0;
+});
 ```
 
 ## Change log
