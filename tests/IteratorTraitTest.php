@@ -82,6 +82,5 @@ class IteratorTraitTest extends BaseTest
         $collection = new Collection(3);
         $collection = new Collection("A string");
     }
-
 }
 

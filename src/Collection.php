@@ -73,4 +73,39 @@ class Collection implements Iterator
             return $result->addWithKey($function($item), $item);
         }, new Collection([]));
     }
+
+    /**
+     * Sort by given function
+     *
+     * @param  function  $function
+     * @return mixed
+     */
+    public function sortBy(callable $function = null,$descending = false)
+    {
+        $itemsToSort = array_map(function ($item) use ($function) {
+            return $function($item);
+        }, $this->items);
+        ($descending)?arsort($itemsToSort):asort($itemsToSort);
+        $keys = array_keys($itemsToSort);
+        $this->items = array_map(function ($key) {
+            return $this->items[$key];
+        }, $keys);
+        return $this;
+    }
+
+    /**
+     * create an array with n item filtered by given function
+     *
+     * @param  function  $function
+     * @return Collection
+     */
+    public function filter(callable $function)
+    {
+        return $this->reduce(function ($collection, $row) use ($function) {
+            if ($function($row)) {
+                return $collection->add($row);
+            }
+            return $collection;
+        }, new Collection());
+    }
 }

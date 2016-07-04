@@ -2,7 +2,6 @@
 
 namespace League\Collection\Traits;
 
-
 use League\Collection\CollectionFactory;
 
 trait IteratorTrait
@@ -101,7 +100,7 @@ trait IteratorTrait
         if (isset($this->items[$key])) {
             $this->items[$key]->add($value);
         } else {
-            $this->items[$key] = CollectionFactory::create([$value]);
+            $this->items[$key] = new self([$value]);
         }
         return $this;
     }

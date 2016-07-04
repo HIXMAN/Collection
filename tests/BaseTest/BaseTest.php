@@ -2,6 +2,7 @@
 
 namespace League\Collection\Test\BaseTest;
 
+use League\Collection\Collection;
 use PHPUnit_Framework_TestCase;
 
 abstract class BaseTest extends PHPUnit_Framework_TestCase

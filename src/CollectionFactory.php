@@ -11,5 +11,4 @@ class CollectionFactory
     {
         return new Collection($dataset);
     }
-
 }
